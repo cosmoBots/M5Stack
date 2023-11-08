@@ -114,6 +114,9 @@
 #endif
 #endif
 
+// Txinto had to add this
+#include "hal/gpio_ll.h"
+
 #ifdef SMOOTH_FONT
 // Call up the SPIFFS FLASH filing system for the anti-aliased fonts
 #define FS_NO_GLOBALS

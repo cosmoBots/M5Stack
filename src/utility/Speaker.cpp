@@ -1,5 +1,7 @@
 #include "Speaker.h"
 
+#include <esp32-hal-dac.h>
+
 SPEAKER::SPEAKER(void) {
     _volume = 8;
     _begun  = false;
@@ -7,14 +9,17 @@ SPEAKER::SPEAKER(void) {
 
 void SPEAKER::begin() {
     _begun = true;
-    ledcSetup(TONE_PIN_CHANNEL, 0, 13);
-    ledcAttachPin(SPEAKER_PIN, TONE_PIN_CHANNEL);
+    // Txinto had to change this
+    // ledcSetup(TONE_PIN_CHANNEL, 0, 13);
+    // ledcAttachPin(SPEAKER_PIN, TONE_PIN_CHANNEL);
+    ledcAttach(SPEAKER_PIN,0,13);      
     setBeep(1000, 100);
 }
 
 void SPEAKER::end() {
     mute();
-    ledcDetachPin(SPEAKER_PIN);
+    // Txinto had to modify this
+    ledcDetach(SPEAKER_PIN);
     _begun = false;
 }
 
@@ -77,5 +82,7 @@ void SPEAKER::playMusic(const uint8_t* music_data, uint16_t sample_rate) {
         }
     }
     // ledcSetup(TONE_PIN_CHANNEL, 0, 13);
-    ledcAttachPin(SPEAKER_PIN, TONE_PIN_CHANNEL);
+
+    // Txinto had to change this    
+    ledcAttach(SPEAKER_PIN, 0, 13);
 }

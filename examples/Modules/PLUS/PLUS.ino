@@ -28,8 +28,10 @@ void setup() {
     M5.Lcd.clear(BLACK);
     M5.Lcd.setTextColor(ORANGE, BLACK);
     Wire.begin();
-    ledcSetup(1, 38000, 10);
-    ledcAttachPin(IrPin, 1);
+    // Txinto had to change this
+    // ledcSetup(1, 38000, 10);
+    // ledcAttachPin(IrPin, 1);
+    ledcAttach(IrPin,38000,10);
 }
 
 void plus_encode() {

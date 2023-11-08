@@ -16,8 +16,10 @@ void setup() {
     M5.Lcd.println("Catch Unit");
     M5.Lcd.setCursor(40, 120, 4);
     M5.Lcd.println("Connect to the Port B");
-    ledcSetup(ledChannel, freq, resolution);
-    ledcAttachPin(servoPin, ledChannel);
+    // Txinto had to change this
+    //ledcSetup(ledChannel, freq, resolution);
+    //ledcAttachPin(servoPin, ledChannel);
+    ledcAttach(servoPin,freq,resolution);    
 }
 
 void loop() {

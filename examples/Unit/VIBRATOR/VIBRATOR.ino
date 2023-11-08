@@ -26,14 +26,17 @@ void setup() {
     M5.Lcd.setCursor(
         110, 10);  // Set the cursor at (110, 10).  将光标设置在(110, 10)处
     M5.Lcd.println("Vibrator");
-    ledcSetup(
-        ledChannel, freq,
-        resolution);  // Sets the frequency and number of counts corresponding
-                      // to the channel.  设置通道对应的频率和计数位数
-    ledcAttachPin(
-        motor_pin,
-        ledChannel);  // Binds the specified channel to the specified I/O port
-                      // for output.  将指定通道绑定到指定 IO 口上以实现输出
+    
+    // Txinto had to change this
+    // ledcSetup(
+    //     ledChannel, freq,
+    //     resolution);  // Sets the frequency and number of counts corresponding
+    //                   // to the channel.  设置通道对应的频率和计数位数
+    // ledcAttachPin(
+    //     motor_pin,
+    //     ledChannel);  // Binds the specified channel to the specified I/O port
+    //                   // for output.  将指定通道绑定到指定 IO 口上以实现输出
+    ledcAttach(motor_pin,freq,resolution);
 }
 
 void loop() {

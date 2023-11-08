@@ -11,8 +11,11 @@ void M5Display::begin() {
     fillScreen(0);
 
     // Init the back-light LED PWM
-    ledcSetup(BLK_PWM_CHANNEL, 44100, 8);
-    ledcAttachPin(TFT_BL, BLK_PWM_CHANNEL);
+    
+    // Txinto had to change this
+    // ledcSetup(BLK_PWM_CHANNEL, 44100, 8);
+    // ledcAttachPin(TFT_BL, BLK_PWM_CHANNEL);
+    ledcAttach(TFT_BL,44100,8);    
     ledcWrite(BLK_PWM_CHANNEL, 80);
 }
 
@@ -344,7 +347,8 @@ static bool jpgDecode(jpg_file_decoder_t *jpeg,
     static uint8_t work[3100];
     JDEC decoder;
 
-    JRESULT jres = jd_prepare(&decoder, reader, work, 3100, jpeg);
+    // Txinto had to modify this
+    JRESULT jres = jd_prepare(&decoder, (UINT(*)(JDEC *, BYTE *, UINT))reader, work, 3100, jpeg);
     if (jres != JDR_OK) {
         log_e("jd_prepare failed! %s", jd_errors[jres]);
         return false;
@@ -366,7 +370,8 @@ static bool jpgDecode(jpg_file_decoder_t *jpeg,
     jpeg->outHeight =
         (jpgMaxHeight > jpeg->maxHeight) ? jpeg->maxHeight : jpgMaxHeight;
 
-    jres = jd_decomp(&decoder, jpgWrite, (uint8_t)jpeg->scale);
+    // Txinto had to modify this
+    jres = jd_decomp(&decoder, (UINT(*)(JDEC *, void *, JRECT *))jpgWrite, (uint8_t)jpeg->scale);
     if (jres != JDR_OK) {
         log_e("jd_decomp failed! %s", jd_errors[jres]);
         return false;

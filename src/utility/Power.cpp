@@ -24,6 +24,9 @@
 
 #include "../M5Stack.h"
 
+// Txinto had to add this
+#include "driver/gpio.h"
+
 // ================ Power IC IP5306 ===================
 #define IP5306_ADDR         (117)  // 0x75
 #define IP5306_REG_SYS_CTL0 (0x00)
